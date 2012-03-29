@@ -1,9 +1,9 @@
 ---
-title:               Title of Your Blog
+title:               Obtvse Demo
 tagline:             Clever tagline.
-login:               dave
-password:            papapa
-name:                Your Name
+login:               <%= ENV["obtvse_login"] ? ENV["obtvse_login"] : "dave" %>
+password:            <%= ENV["obtvse_password"] ? ENV["obtvse_password"] : "papapa" %>
+name:                Your name
 twitter:             your_twitter_handle
 github:              your_github_handle
 email:               address@example.com

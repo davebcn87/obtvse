@@ -6,6 +6,7 @@ class PostsController < ApplicationController
 
 	def index
 		@posts = Post.page(params[:page]).per(10).where(draft:false)
+		session[:test] = true
 
 		respond_to do |format|
 			format.html
@@ -13,6 +14,14 @@ class PostsController < ApplicationController
 			format.rss { render :layout => false }
 		end
 	end
+
+	def preview
+    @post = Post.new(params[:post])
+    @preview = true
+    respond_to do |format|
+      format.html { render 'show' }
+    end
+  end
 
 	def admin
 		@no_header = true
@@ -26,8 +35,8 @@ class PostsController < ApplicationController
 	end
 
 	def show
-		@show = true
-		@post = Post.find_by_slug_and_draft(params[:slug], false)
+		@single_post = true
+		@post = admin? ? Post.find_by_slug(params[:slug]) : Post.find_by_slug_and_draft(params[:slug],false)
 
 		respond_to do |format|
 			if @post.present?
@@ -95,8 +104,12 @@ class PostsController < ApplicationController
 
 	private
 
+	def admin?
+		session[:admin] == true
+	end
+
 	def choose_layout
-		if ['admin', 'new', 'edit'].include? action_name
+		if ['admin', 'new', 'edit', 'create'].include? action_name
 			'admin'
 		else
 			'application'

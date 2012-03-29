@@ -1,3 +1,5 @@
+
+/* TODO: pull out coloring into variables */
 $linkhover: red;
 
 
@@ -18,15 +20,15 @@ body, textarea, pre, input {
   font-weight: 400;
 }
 
-h1,h2,h3,h4,h5 {
+h1,h2,h3,h4,h5,#text-title pre {
   font-weight: 900;
   word-wrap: break-word;
   line-height: 1.3em;
 }
 
 h1,
-.expandingArea.text-title pre,
-.expandingArea.text-title textarea {
+#text-title pre,
+#text-title textarea {
   font-weight: 900;
   font-size: 35px;
 }
@@ -43,7 +45,8 @@ a:active {
   border-bottom: 1px solid #ddd;
 }
 
-a:hover {
+a:hover,
+#admin #published h3 a:hover {
   color: $linkhover;
 }
 
@@ -61,7 +64,7 @@ header {
 
     &.powered-by {
       position: absolute;
-      bottom: 20px;
+      bottom: 30px;
       font-size: 11px;
     }
   }
@@ -108,8 +111,16 @@ header {
     position: relative;
   }
 
-  h1.aside {
+  h1.external {
+    margin-top: 25px;
     font-size: 18px;
+
+    .permalink {
+      margin-left: 8px;
+      font-size: 19px;
+      color: #999;
+      border: none;
+    }
   }
 }
 
@@ -128,6 +139,7 @@ code {
 .contain,
 #new_post, .edit_post {
   width: 580px;
+  position: relative;
 }
 
 .contain img {
@@ -147,7 +159,7 @@ fieldset.markdown {
   padding: 0;
 }
 
-.markdown::before {
+.markdown:before {
   display: block;
   content: "";
   width: 39px;
@@ -158,12 +170,15 @@ fieldset.markdown {
   background: url(/assets/markdown.png) no-repeat top left;
 }
 
+#text-title {
+  margin: 0 0 20px 0;
+}
+
 #post_title {
   width: 100%;
   border: none;
   background: none;
   line-height: 45px;
-  margin: 0 0 20px 0;
 }
 
 #post_content {
@@ -173,6 +188,14 @@ fieldset.markdown {
   margin: 0 0 80px 0;
 }
 
+  form .permalink {
+   position: absolute;
+   left: -34px;
+   top: 12px;
+   border: none;
+   color: #ddd;
+  }
+
 #publish-bar {
   position: fixed;
   bottom: 0;
@@ -181,12 +204,47 @@ fieldset.markdown {
   color: #fff;
   width: 100%;
   text-align: center;
-  padding: 20px 0;
+  padding: 15px 0 15px;
 
   .contain {
     margin: 0 auto;
     width: 700px;
   }
+
+  input[type=text] {
+    border: none;
+    border-bottom: 1px solid #333;
+    padding: 2px;
+    width: 220px;
+    font-size: 12px;
+    color: #999;
+  }
+
+  .menu.active {
+    background: #fff;
+    color: #000;
+  }
+
+  .sub-menu {
+    margin: 0;
+    background: #222;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 60px;
+    visibility: hidden;
+            border-radius: 5px;
+       -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+
+    &.visible {
+      visibility: visible;
+    }
+  }
+
+    .sub-menu li {
+      margin: 0 0 15px 0;
+    }
 }
 
 #publish-bar input[type=submit],
@@ -194,7 +252,7 @@ fieldset.markdown {
 .button {
   display: inline-block;
   background: #000;
-  padding: 10px;
+  padding: 8px 12px;
   font-weight: bold;
   border: none;
   color: #fff;
@@ -233,8 +291,8 @@ fieldset.markdown {
 
 .actions {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0;
+  right: -60px;
   font-size: 12px;
   margin: 0;
   padding: 0;
@@ -246,10 +304,10 @@ fieldset.markdown {
 }
 
 label {
-  font-size: 20px;
+  font-size: 16px;
   color: #fff;
   font-weight: bold;
-  margin: 0 4px 0 15px;
+  margin: 0 8px 0 0;
 }
 
 #post_draft {
@@ -269,11 +327,14 @@ label {
 }
 
 .notice {
+  position: absolute;
+  top: 0;
   background: lightYellow;
   width: 100%;
   display: block;
   text-align: center;
-  padding: 6px 0;
+  padding: 3px 0;
+  font-size: 12px;
 }
 
 #admin {
@@ -309,6 +370,7 @@ label {
 
     h2 {color: #999;}
     h2 a {margin-top: -2px;}
+    h3 a {color: #999;}
   }
 
   .col h1,
@@ -345,7 +407,7 @@ label {
 
       li {
         border-bottom: 1px solid #ddd;
-        padding: 15px;
+        padding: 15px 0;
         position: relative;
 
         &:hover .links {
@@ -392,6 +454,10 @@ label {
     padding: 0;
     outline: 0;
     border: 0;
+  }
+
+  #text-content {
+    margin: 0 0 100px 0;
   }
 
   .expandingArea {
